@@ -17,22 +17,21 @@ swagger = Swagger(app)
 @app.route('/api/clima', methods=['GET'])
 def obtener_clima():
     """
-    Obtenir les dades meteorològiques actuals
+    Obtenir l'ultima dada real obtinguda guardada a la llista
     ---
     responses:
       200:
-        description: Torna la temperatura, humitat i pressió actuals (dades simulades per ara).
+        description: Torna l'ultim registre de temperatura i humitat.
+    responses:
+      404:
+        description: No es troben dades al server.
     """
-    # Com encara no estem a la Raspberri Pi, inventem unes dades falses (Mocking)
-    datos_simulados = {
-        "temperatura": 24.5,
-        "humedad": 55,
-        "presion": 1012
-    }
-    
-    # jsonify converteix el nostre diccionari de Python a format JSON, 
-    # que és l'idioma universal que entendrà la pàgina web i l'App Inventor.
-    return jsonify(datos_simulados), 200
+    if len(base_dades_provisional) > 0:
+        # Agafem l'ultim element de la llista
+        ultimo_dato = base_dades_provisional[-1]
+        return jsonify(ultimo_dato), 200
+    else:
+        return jsonify({"error": "No hi han dades encara"}), 404
 #El mètode POST serveix per a que el sensor envii dades a la API.
 @app.route('/api/clima', methods=['POST'])
 def rebre_clima():
@@ -60,6 +59,8 @@ def rebre_clima():
     """
     #Extraemos los datos que vienen en el JSON
     datos = request.get_json()
+    #Guardem elpaquet a la nostra lista
+    base_dades_provisional.append(datos)
     temperatura = datos.get('temp')
     humedad = datos.get('hum')
     #De momento solo los imprimimos para ver que llegan
