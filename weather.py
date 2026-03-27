@@ -40,7 +40,10 @@ def obtener_historial():
     responses:
       200:
         description: Torna la llista completa de dades desades a la memòria.
+      404:
+        description: No hi ha dades a l'historial encara.
     """
+    # Si la llista té al menys 1 element, la tornem sencera
     if len(base_dades_provisional) > 0:
         return jsonify(base_dades_provisional), 200
     else:
