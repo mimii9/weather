@@ -32,6 +32,20 @@ def obtener_clima():
         return jsonify(ultimo_dato), 200
     else:
         return jsonify({"error": "No hi han dades encara"}), 404
+@app.route('/api/clima/historial', methods=['GET'])
+def obtener_historial():
+    """
+    Obtenir tot l'historial de medicions
+    ---
+    responses:
+      200:
+        description: Torna la llista completa de dades desades a la memòria.
+    """
+    if len(base_dades_provisional) > 0:
+        return jsonify(base_dades_provisional), 200
+    else:
+        return jsonify({"mensaje": "El historial esta vacio"}), 404
+
 #El mètode POST serveix per a que el sensor envii dades a la API.
 @app.route('/api/clima', methods=['POST'])
 def rebre_clima():
