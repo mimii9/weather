@@ -2,6 +2,17 @@
 # 1. Importem les eines que acabem d'instalar
 from flask import Flask, jsonify, request
 from flasgger import Swagger
+from flask_sqlalchemy import SQLAlchemy
+
+# Això és la 'configuració' de la conexió (la canviaré quan Alex em doni les dades)
+app.config['SQLALCHEMY_DATABASE_VALUE'] = 'mysql+pymysql://user:password@ip_raspberry/nom_bd'
+db = SQLAlchemy(app)
+
+#Defino com és la taula de la base de dades
+class Medicion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    temperatura = db.Column(db.Float, nullable=False)
+    humedad = db.Column(db.Float, nullable=False)
 
 # 2. Inicialitzem la nostre aplicació Flask
 app = Flask(__name__)
