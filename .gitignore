@@ -1,13 +1,8 @@
-# Entorno virtual (Nunca se sube)
-venv/
-
-# Carpeta de Python temporal (Nunca se sube)
+# Created by venv; see https://docs.python.org/3/library/venv.html
+.venv
+requirements.txt
 __pycache__/
 *.pyc
-
-# Base de datos local (Contiene tus datos reales, no se sube)
 instance/
-
-# Archivos de configuración del sistema o VS Code
-.DS_Store
 .vscode/
+.DS_Store
