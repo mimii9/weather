@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Estació Meteorològica</title>
+    <meta http-equiv="refresh" content="5"> <style>
+    body {
+        background-color: #eee6f8;
+        font-family: sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+    table {
+        margin: auto;
+        border-collapse: collapse;
+        width: 50%;
+        background: white;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    th {
+        background-color: #b480f0;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+    <h1>Medicions en temps real</h1>
+    <table>
+        <tr><th>ID</th><th>Temperatura</th><th>Humitat</th></tr>
+        {% for medicio in medicions %}
+        <tr>
+            <td>{{ medicio.id }}</td>
+            <td>{{ medicio.temp }}</td>
+            <td>{{ medicio.hum }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
